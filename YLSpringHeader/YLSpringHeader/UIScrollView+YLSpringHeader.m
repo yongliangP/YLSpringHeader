@@ -98,7 +98,10 @@ static char YLTitleLabel;
         if (self.headerView.frame.size.height!=kNavHeight)
         {
             self.headerView.frame = CGRectMake(0, 0, self.headerView.bounds.size.width, kNavHeight);
-            self.titleLabel.alpha = 1;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.titleLabel.frame = CGRectMake(35, 20, self.bounds.size.width-35*2, 44);
+                self.titleLabel.alpha = 1;
+            }];
         }
         
     }else
@@ -106,7 +109,10 @@ static char YLTitleLabel;
         self.headerView.frame = CGRectMake(0, 0, self.headerView.bounds.size.width, -offsetY);
         if (self.titleLabel.alpha!=0)
         {
-            self.titleLabel.alpha = 0;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.titleLabel.frame = CGRectMake(35, 40, self.bounds.size.width-35*2, 44);
+                self.titleLabel.alpha = 0;
+            }];
             
         }
         

@@ -58,13 +58,16 @@
     self.headerView.headerImage = [UIImage imageNamed:@"saber.jpeg"];
     self.headerView.tittle = @"哈哈是个demo";
     self.headerView.isShowLeftButton = YES;
+    self.headerView.isShowRightButton = YES;
     __weak typeof(self) weakSelf = self;
     self.headerView.leftClickBlock = ^(UIButton *btn){
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
-    [self.webView.scrollView handleSpringHeadView:self.headerView];
-    
+    self.headerView.rightClickBlock  = ^(UIButton *btn){
+        NSLog(@"点击了分享");
+    };
 
+    [self.webView.scrollView handleSpringHeadView:self.headerView];
     
 }
 

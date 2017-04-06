@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *leftButton;
+@property (nonatomic, strong) UIButton *rightButton;
 @end
 
 @implementation YLSpringHeaderView
@@ -45,6 +46,20 @@
     }
     return _leftButton;
 }
+
+-(UIButton*)rightButton
+{
+    if (!_rightButton)
+    {
+        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightButton addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_rightButton setImage:[UIImage imageNamed:@"ic_share_white"] forState:UIControlStateNormal];
+        [self addSubview:_rightButton];
+    }
+
+    return _rightButton;
+}
+
 
 -(UILabel *)titleLabel
 {
@@ -105,6 +120,14 @@
 }
 
 
+-(void)rightBtnClick:(UIButton*)btn
+{
+    if (self.rightClickBlock)
+    {
+        self.rightClickBlock(btn);
+    }
+}
+
 -(void)setIsShowLeftButton:(BOOL)isShowLeftButton
 {
     _isShowLeftButton = isShowLeftButton;
@@ -112,9 +135,17 @@
     {
         self.leftButton.frame = CGRectMake(5, 20, 40, 40);
     }
-    
-   
 }
+
+-(void)setIsShowRightButton:(BOOL)isShowRightButton
+{
+    _isShowRightButton = isShowRightButton;
+    if (isShowRightButton)
+    {
+        self.rightButton.frame = CGRectMake(self.frame.size.width-50, 20, 40, 40);
+    }
+}
+
 
 -(void)willMoveToSuperview:(UIView *)newSuperview
 {
@@ -122,12 +153,15 @@
     
     self.imageEffectView.frame = self.bounds;
     
-    self.titleLabel.frame = CGRectMake(35, 20, self.bounds.size.width-35*2, 44);
+    self.titleLabel.frame = CGRectMake(35, 40, self.bounds.size.width-35*2, 44);
     if (self.isShowLeftButton)
     {
         self.leftButton.frame = CGRectMake(5, 20, 40, 40);
     }
-   
+    if (self.isShowRightButton)
+    {
+        self.rightButton.frame = CGRectMake(self.bounds.size.width-50, 20, 40, 40);
+    }
     self.clipsToBounds = YES;
 }
 
